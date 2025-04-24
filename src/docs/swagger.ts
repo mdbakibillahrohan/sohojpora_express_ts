@@ -1,0 +1,1 @@
+// Moved Swagger configurations to a dedicated `docs` directory.

@@ -1,0 +1,1 @@
+// Renamed `interfaces` directory to `types` for better clarity.
