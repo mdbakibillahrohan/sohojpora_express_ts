@@ -1,0 +1,40 @@
+### Register a new user
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "user_type_id": 2,
+  "date_of_birth": "1995-08-15",
+  "email": "rohan@email.com",
+  "first_name": "Rohan",
+  "gender_id": 2,
+  "last_name": "Doe",
+  "password": "password",
+  "phone_number": "01812345678",
+  "username": "rohan123"
+}
+
+
+### Login a user
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "rohan@email.com",
+  "password": "password"
+}
+
+### Get a category by ID
+GET http://localhost:3000/api/categories/3
+
+### Update a category
+PUT http://localhost:3000/api/categories/1
+Content-Type: application/json
+
+{
+  "name": "Updated Electronics",
+  "description": "Updated description"
+}
+
+### Delete a category
+DELETE http://localhost:3000/api/categories/1

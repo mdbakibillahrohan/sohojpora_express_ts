@@ -45,7 +45,7 @@ export class User extends BaseEntity {
     date_of_birth!: Date;
     @Column({
         type: 'varchar',
-        length: 20,
+        length: 255,
         nullable: false,
     })
     password!: string;

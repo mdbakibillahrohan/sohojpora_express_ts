@@ -5,6 +5,8 @@ import { UserRepositories } from '../modules/user/repositories/user.repository';
 import { JwtService } from '../modules/auth/services/jwt.service';
 import { BcryptService } from '../modules/auth/services/becrypt.service';
 import { AuthService } from '../modules/auth/services/auth.service';
+import { UserTypeRepository } from '../modules/user/repositories/user-type.repository';
+import { UserTypeService } from '../modules/user/services/user-type/user-type.service';
 
 
 export const registerDependencies = (): void => {
@@ -14,6 +16,9 @@ export const registerDependencies = (): void => {
 
   //User
   container.registerSingleton(UserRepositories);
+
+  container.registerSingleton(UserTypeRepository);
+  container.registerSingleton(UserTypeService);
 
   //Auth
   container.registerSingleton(JwtService);

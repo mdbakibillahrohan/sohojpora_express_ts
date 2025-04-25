@@ -3,9 +3,9 @@ import { injectable } from "tsyringe";
 import { UserRepositories } from "../../user/repositories/user.repository";
 import { UserDTO } from "../../user/dtos/user-dto";
 import { User } from "../../../entities/user.entity";
-import { plainToInstance } from "class-transformer";
+import { instanceToPlain, plainToInstance } from "class-transformer";
 import { BcryptService } from "./becrypt.service";
-import { NotFoundException } from "../../../core/AppError";
+import { BadRequestException, NotFoundException } from "../../../core/AppError";
 import { JwtService } from "./jwt.service";
 
 @injectable()
@@ -22,11 +22,25 @@ export class AuthService {
       throw new NotFoundException("Invalid password");
     }
     user.password = ""; // Remove password from the response
-    const token = this.jwtService.generateToken(user);
+    const payload = instanceToPlain(user) as UserDTO;
+    const token = this.jwtService.generateToken(payload);
     return token;
   }
 
   async regiser(userInfo: UserDTO) {
+
+    //Check by email
+    const userByEmail = await this.userRepository.findUserByEmail(userInfo.email);
+    if (userByEmail) {
+      throw new BadRequestException("Email already exists");
+    }
+
+    //Check by username
+    const userByUsername = await this.userRepository.findUserByUsername(userInfo.username);
+    if (userByUsername) {
+      throw new BadRequestException("Username already exists");
+    }
+
     userInfo.password = await this.bcryptService.hashPassword(userInfo.password);
     const user: User = plainToInstance(User, userInfo);
     const userCreated = await this.userRepository.createUser(user);

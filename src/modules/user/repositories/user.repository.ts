@@ -12,6 +12,9 @@ export class UserRepositories {
     }
 
     async createUser(user: User) {
+        user.active_status = ActiveStatus.ACTIVE;
+        user.created_at = new Date();
+        user.created_by = 0;
         const createdUser = await this.userRepository.save(user);
         return createdUser;
     }

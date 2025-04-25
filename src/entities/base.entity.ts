@@ -11,9 +11,9 @@ export abstract class BaseEntity {
     created_by!: number;
 
 
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+    @Column({ type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
     updated_at!: Date | null;
-    @Column({ type: 'int' })
+    @Column({ type: 'int', nullable: true })
     updated_by!: number | null;
     @Column({ type: 'timestamp', nullable: true })
     deleted_at!: Date | null;

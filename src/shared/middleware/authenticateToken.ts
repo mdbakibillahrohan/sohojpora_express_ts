@@ -1,26 +1,26 @@
 import { Request as ExpressRequest, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../../config/config';
+import { ForbiddenException, UnauthorizedException } from '../../core/AppError';
+import { UserDTO } from '../../modules/user/dtos/user-dto';
+import { container } from 'tsyringe';
+import { JwtService } from '../../modules/auth/services/jwt.service';
 
 interface AuthenticatedRequest extends ExpressRequest {
-  user?: any;
+  user?: UserDTO;
 }
+
+const jwtService = container.resolve(JwtService);
 
 export function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction): void {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    res.status(401).json({ error: 'Access token is missing' });
-    return;
+    throw new UnauthorizedException('Token not provided');
   }
 
-  jwt.verify(token, config.jwtSecret as string, (err, user) => {
-    if (err) {
-      res.status(403).json({ error: 'Invalid token' });
-      return;
-    }
-    req.user = user;
-    next();
-  });
+  req.user = jwtService.verifyToken(token);
+
+  next();
 }
