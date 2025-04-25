@@ -17,6 +17,15 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = setupSocketIO(server);
 
+// Initialize the database connection
+AppDataSource.initialize()
+  .then(() => {
+    logger.info('Database connection established successfully');
+  })
+  .catch((error) => {
+    logger.error('Error during Data Source initialization:', error);
+  });
+
 // Register dependencies
 registerDependencies();
 
@@ -52,13 +61,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.use(handleError);
 
 server.listen(PORT, () => {
-  AppDataSource.initialize()
-    .then(() => {
-      logger.info('Database connection established successfully');
-    })
-    .catch((error) => {
-      logger.error('Error during Data Source initialization:', error);
-    });
+
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
 

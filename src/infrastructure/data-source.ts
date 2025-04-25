@@ -14,19 +14,6 @@ export const AppDataSource = new DataSource({
   entities: [UserType, Gender, User],
   migrations: ['dist/migrations/*.js'],
   synchronize: true, // Use migrations instead
-  logging: true, // Enable logging for development
+  logging: false, // Enable logging for development
 });
-
-// AppDataSource.initialize()
-//   .then(() => {
-//     console.log('Database connection established successfully');
-//   })
-//   .catch((error) => {
-//     console.error('Error during Data Source initialization:', error);
-//     console.error('Error details:', {
-//       message: error.message,
-//       stack: error.stack,
-//       name: error.name,
-//     });
-//   });
 
