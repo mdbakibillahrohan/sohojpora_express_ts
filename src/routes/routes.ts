@@ -1,6 +1,7 @@
 import express from 'express';
 import authRouter from '../modules/auth/routes/auth.routes';
 import userModuleRouter from '../modules/user/routes/user.routes';
+import { authenticateToken } from '../shared/middleware/auth/authenticateToken';
 
 const router = express.Router();
 // Import other routers as needed
@@ -9,6 +10,6 @@ const router = express.Router();
 router.use('/api/auth', authRouter);
 
 //registering userModuleRouter
-router.use('/api/', userModuleRouter); // Example of another router
+router.use('/api/', authenticateToken, userModuleRouter);
 
 export default router;
