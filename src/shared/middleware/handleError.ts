@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AppError } from '../../core/AppError';
 import { ApiResponse } from '../../interfaces/ApiResponse';
+import logger from '../../config/logger';
 
 export const handleError = (
   err: Error,
@@ -8,6 +9,7 @@ export const handleError = (
   res: Response,
   next: NextFunction
 ): void => {
+  logger.error(err.message);
   if (err instanceof AppError) {
     const response: ApiResponse<null> = {
       success: false,
