@@ -7,10 +7,12 @@ import { instanceToPlain, plainToInstance } from "class-transformer";
 import { BcryptService } from "./becrypt.service";
 import { BadRequestException, NotFoundException } from "../../../core/AppError";
 import { JwtService } from "./jwt.service";
+import { UserLoginHistoryRepository } from "../../user/repositories/user-login-history.repository";
+import { UserLoginHistory } from "../../../entities/user-login-history.entity";
 
 @injectable()
 export class AuthService {
-  constructor(private userRepository: UserRepositories, private bcryptService: BcryptService, private jwtService: JwtService) { }
+  constructor(private userRepository: UserRepositories, private bcryptService: BcryptService, private jwtService: JwtService, private userLoginHistoryRepository:UserLoginHistoryRepository) { }
 
   async login(email: string, password: string): Promise<string> {
     const user = await this.userRepository.findUserByEmail(email);
@@ -24,6 +26,16 @@ export class AuthService {
     user.password = ""; // Remove password from the response
     const payload = instanceToPlain(user) as UserDTO;
     const token = this.jwtService.generateToken(payload);
+
+    // Save login history
+    const userLoginHistory = new UserLoginHistory();
+    userLoginHistory.user_id = user.id;
+    userLoginHistory.login_time = new Date();
+    userLoginHistory.device_id = 125456454; 
+    userLoginHistory.token = token;
+
+    await this.userLoginHistoryRepository.createUserLoginHistory(userLoginHistory);
+
     return token;
   }
 
