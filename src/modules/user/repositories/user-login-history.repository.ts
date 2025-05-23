@@ -5,7 +5,7 @@ import { AppDataSource } from "../../../infrastructure/data-source";
 import { ActiveStatus } from "../../../entities/active-status.enum";
 
 @injectable()
-export class UserLoginHistoryRepository { 
+export class UserLoginHistoryRepository {
 
     private userLoginHistoryRepository: Repository<UserLoginHistory>;
     constructor() {
@@ -48,6 +48,7 @@ export class UserLoginHistoryRepository {
         });
         return userLoginHistory;
     }
+
     async deleteUserLoginHistory(id: number, userId: number): Promise<void> {
         await this.userLoginHistoryRepository.update(id, {
             active_status: ActiveStatus.DELETED,
@@ -55,5 +56,15 @@ export class UserLoginHistoryRepository {
             deleted_by: userId,
         });
     }
-    
+
+    async getUserLoginHistoryByToken(token: string): Promise<UserLoginHistory | null> {
+        const userLoginHistory = await this.userLoginHistoryRepository.findOne({
+            where: {
+                token,
+                active_status: Not(ActiveStatus.DELETED),
+            },
+        });
+        return userLoginHistory;
+    }
+
 }
