@@ -12,7 +12,7 @@ import { UserLoginHistory } from "../../../entities/user-login-history.entity";
 
 @injectable()
 export class AuthService {
-  constructor(private userRepository: UserRepositories, private bcryptService: BcryptService, private jwtService: JwtService, private userLoginHistoryRepository:UserLoginHistoryRepository) { }
+  constructor(private userRepository: UserRepositories, private bcryptService: BcryptService, private jwtService: JwtService, private userLoginHistoryRepository: UserLoginHistoryRepository) { }
 
   async login(email: string, password: string): Promise<string> {
     const user = await this.userRepository.findUserByEmail(email);
@@ -31,8 +31,9 @@ export class AuthService {
     const userLoginHistory = new UserLoginHistory();
     userLoginHistory.user_id = user.id;
     userLoginHistory.login_time = new Date();
-    userLoginHistory.device_id = 125456454; 
+    userLoginHistory.device_id = 125456454;
     userLoginHistory.token = token;
+    userLoginHistory.created_by = user.id;
 
     await this.userLoginHistoryRepository.createUserLoginHistory(userLoginHistory);
 

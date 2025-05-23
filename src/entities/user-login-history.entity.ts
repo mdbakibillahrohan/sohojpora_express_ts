@@ -16,7 +16,7 @@ export class UserLoginHistory extends BaseEntity {
     device_id!: number;
     @Column({
         type: 'varchar',
-        length: 255,
+        length: 1000,
         nullable: false,
         unique: true,
     })
@@ -29,19 +29,20 @@ export class UserLoginHistory extends BaseEntity {
     login_time!: Date;
     @Column({
         type: 'timestamp',
-        nullable: false,
+        nullable: true,
         unique: true,
     })
     logout_time!: Date;
     @Column({
         type: 'timestamp',
-        nullable: false,
+        nullable: true,
         unique: true,
     })
     expire_time!: Date;
     @Column({
         type: 'boolean',
-        nullable: false
+        nullable: false,
+        default: false
     })
     is_access_revoked!: boolean;
 
