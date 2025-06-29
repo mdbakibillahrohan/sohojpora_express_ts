@@ -1,8 +1,11 @@
 import 'reflect-metadata';
 import 'module-alias/register';
+import 'dotenv/config';
+import {config} from './config/config';
 import { Request, Response, NextFunction } from 'express';
 import http from 'http';
 import express from 'express';
+import cors from 'cors';
 import { setupSwagger } from './config/swagger';
 import { AppDataSource } from './infrastructure/data-source';
 import router from './routes/routes';
@@ -36,6 +39,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.url}`);
   next();
 });
+// Middleware for CORS
+app.use(cors());
 
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

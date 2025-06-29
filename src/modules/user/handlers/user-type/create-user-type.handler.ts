@@ -21,6 +21,7 @@ export const createUserTypeValidationSchema = Joi.object<CreateUserTypeRequest>(
     description: Joi.string().optional(),
 }).required();
 
+
 const userTypeService = container.resolve(UserTypeService);
 
 /**

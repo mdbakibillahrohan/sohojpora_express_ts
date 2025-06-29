@@ -6,7 +6,7 @@ export const config = {
   db: {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
+    user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     name: process.env.DB_NAME,
   },
@@ -15,4 +15,4 @@ export const config = {
 
 if (!config.jwtSecret) {
   throw new Error('JWT_SECRET is not defined in the environment variables');
-}
+} 

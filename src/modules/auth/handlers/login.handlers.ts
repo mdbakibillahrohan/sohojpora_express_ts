@@ -102,6 +102,7 @@ const authService = container.resolve(AuthService);
 export const loginHandler = async (req: Request<any, any, LoginRequest, any>, res: Response<ApiResponse<LoginResponse>>): Promise<void> => {
     const { email, password } = req.body;
     const token = await authService.login(email, password);
+
     res.status(200).json({
         message: "Login successful",
         data: {
