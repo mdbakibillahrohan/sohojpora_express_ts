@@ -7,7 +7,7 @@ export abstract class BaseEntity {
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created_at!: Date;
 
-    @Column({ type: 'int' })
+    @Column({ type: 'int' , nullable:true})
     created_by!: number;
 
 
@@ -25,4 +25,4 @@ export abstract class BaseEntity {
         default: ActiveStatus.ACTIVE,
     })
     active_status!: ActiveStatus;
-}
+}   

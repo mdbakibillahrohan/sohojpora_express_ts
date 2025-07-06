@@ -5,14 +5,21 @@ import { injectable } from "tsyringe";
 
 @injectable()
 export class UserDeviceRepository {
-    private userDeviceRepository: Repository<UserDevice>;
-
-    constructor() {
-        this.userDeviceRepository = AppDataSource.getRepository(UserDevice);
+    private get userDeviceRepository(): Repository<UserDevice>{
+        if (!AppDataSource.isInitialized) {
+            throw new Error("Database connection is not initialized");
+        }
+        return AppDataSource.getRepository(UserDevice);
     }
 
-    async createUserDevice(userDevice: UserDevice): Promise<UserDevice> {
+    // constructor() {
+    //     this.userDeviceRepository = AppDataSource.getRepository(UserDevice);
+    // }
+
+    async createUserDevice(userDevice: UserDevice, created_by: number): Promise<UserDevice> {
         userDevice.created_at = new Date();
+        userDevice.created_by = created_by; 
+
         const createdUserDevice = await this.userDeviceRepository.save(userDevice);
         return createdUserDevice;
     }

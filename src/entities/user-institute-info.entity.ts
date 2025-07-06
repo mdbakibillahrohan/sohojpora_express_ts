@@ -1,8 +1,10 @@
-import { Column, JoinColumn, ManyToOne } from "typeorm";
+import { Column,Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "./base.entity";
 import { User } from "./user.entity";
 import { Institute } from "./institute.entity";
 
+
+@Entity('user_institute_info')
 export class UserInstituteInfo extends BaseEntity {
     @Column({
         type: 'int',

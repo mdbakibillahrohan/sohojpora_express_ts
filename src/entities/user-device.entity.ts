@@ -1,7 +1,8 @@
-import { Column, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "./base.entity";
 import { User } from "./user.entity";
 
+@Entity('user_devices')
 export class UserDevice extends BaseEntity {
     @Column({
         type: 'int',
