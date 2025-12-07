@@ -9,7 +9,10 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": [
+      "@types"
+    ]
   },
   "include": [
     "src/**/*.ts"

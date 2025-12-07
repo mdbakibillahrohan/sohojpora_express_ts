@@ -12,12 +12,26 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000', // Replace with your server URL
+        url: 'http://localhost:3000',
         description: 'Development server',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT', // optional
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [], // apply globally
+      },
+    ],
   },
-  apis: ['./src/modules/**/*.ts'], // Path to the API docs
+  apis: ['./src/modules/**/*.ts'],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

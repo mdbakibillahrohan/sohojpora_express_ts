@@ -1,0 +1,12 @@
+@BaseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImNyZWF0ZWRfYXQiOiIyMDI1LTA0LTI1VDEyOjQ5OjMwLjMwMVoiLCJjcmVhdGVkX2J5IjowLCJ1cGRhdGVkX2F0IjoiMjAyNS0wNC0yNVQxMjo0OTozMC4zMDNaIiwidXBkYXRlZF9ieSI6bnVsbCwiZGVsZXRlZF9hdCI6bnVsbCwiZGVsZXRlZF9ieSI6bnVsbCwiYWN0aXZlX3N0YXR1cyI6ImFjdGl2ZSIsInVzZXJfdHlwZV9pZCI6MiwiZ2VuZGVyX2lkIjoyLCJmaXJzdF9uYW1lIjoiUm9oYW4iLCJsYXN0X25hbWUiOiJEb2UiLCJwaG9uZV9udW1iZXIiOiIwMTgxMjM0NTY3OCIsImVtYWlsIjoicm9oYW5AZW1haWwuY29tIiwidXNlcm5hbWUiOiJyb2hhbjEyMyIsImRhdGVfb2ZfYmlydGgiOiIxOTk1LTA4LTE1IiwicGFzc3dvcmQiOiIiLCJpYXQiOjE3NDczOTQyODV9.ofFcOmFnQxmyxiVFu8dsE5AeGgfg3zC53JTXNCMSwDk
+
+### Get User Types
+POST {{BaseUrl}}/user-type
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Student",
+    "description": "This is student user type"
+}

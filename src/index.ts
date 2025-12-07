@@ -9,7 +9,7 @@ import router from './routes/routes';
 import { setupSocketIO } from './config/socket';
 import { registerDependencies } from './ioc/ioc';
 import logger from './config/logger';
-import { handleError } from './shared/middleware/handleError';
+import { handleError } from './shared/middleware/error/handleError';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

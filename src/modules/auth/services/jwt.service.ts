@@ -1,6 +1,7 @@
 import Jwt, { SignOptions } from "jsonwebtoken";
 import { injectable } from "tsyringe";
 import { UserDTO } from "../../user/dtos/user-dto";
+import { UnauthorizedException } from "../../../core/AppError";
 
 @injectable()
 export class JwtService {
@@ -23,7 +24,7 @@ export class JwtService {
             const decoded = Jwt.verify(token, this.secretKey);
             return decoded as UserDTO;
         } catch (error) {
-            throw new Error("Invalid token");
+            throw new UnauthorizedException("Invalid token");
         }
     }
     decodeToken(token: string): string | null | Jwt.JwtPayload {
